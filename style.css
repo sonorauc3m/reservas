@@ -1,0 +1,291 @@
+:root {
+  --sonora-red: #be1622;
+  --sonora-red-dark: #8c1019;
+  --bg-deep: #050307;
+  --card-bg: rgba(0,0,0,0.78);
+  --card-border: rgba(255,255,255,0.18);
+  --text-main: #ffffff;
+  --text-muted: #d4d4d4;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Helvetica Now Display", "Helvetica Neue", Helvetica,
+    system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(190,22,34,0.95) 0%, #5a0910 40%, #050307 100%);
+  background-color: #050307;
+  background-attachment: fixed;
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page {
+  width: 100%;
+  max-width: 960px;
+}
+
+/* PASSWORD GATE */
+
+.card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  padding: 20px 18px 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+  backdrop-filter: blur(22px);
+}
+
+.gate-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.gate-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.gate-sub {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+.gate-form {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.gate-input {
+  width: 100%;
+  max-width: 260px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 8px 14px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.gate-input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.gate-button {
+  border-radius: 999px;
+  border: none;
+  padding: 8px 22px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  background: #ffffff;
+  color: var(--sonora-red-dark);
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.6);
+}
+
+.gate-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.8);
+}
+
+.gate-error {
+  font-size: 0.8rem;
+  color: #ffb3b3;
+  min-height: 1.1em;
+}
+
+.hidden {
+  display: none;
+}
+
+/* APP REAL */
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.app-sub {
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.warning-box {
+  margin-top: 10px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.warning-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.rules {
+  margin-top: 14px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.rules ul {
+  padding-left: 1.2rem;
+  margin-top: 4px;
+}
+
+.rules li {
+  margin-bottom: 4px;
+}
+
+/* BOTONES RESERVA */
+
+.slots-section {
+  margin-top: 18px;
+}
+
+.slots-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.slot-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: #ffffff;
+  color: var(--sonora-red-dark);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+}
+
+.slot-btn span.label {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+.slot-btn span.time {
+  font-size: 0.95rem;
+}
+
+.slot-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.8);
+}
+
+/* CALENDARIO */
+
+.calendar-section {
+  margin-top: 22px;
+}
+
+.calendar-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.calendar-sub {
+  font-size: 0.82rem;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+.calendar-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: #000;
+}
+
+.calendar-wrapper iframe {
+  width: 100%;
+  min-width: 600px;
+  border: 0;
+  display: block;
+}
+
+/* FOOTER */
+
+.footer {
+  margin-top: 12px;
+  font-size: 0.76rem;
+  opacity: 0.85;
+  text-align: right;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 640px) {
+  .card {
+    padding: 16px 14px 16px;
+  }
+
+  .app-title {
+    font-size: 1.3rem;
+  }
+
+  .calendar-wrapper iframe {
+    min-width: 520px;
+    height: 480px;
+  }
+}
