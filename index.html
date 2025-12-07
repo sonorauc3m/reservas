@@ -1,426 +1,244 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Reserva estudio · Sonora UC3M</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reserva Estudio · Sonora UC3M</title>
 
-  <style>
-    :root {
-      --sonora-red: #be1622;
-      --sonora-red-dark: #8c1019;
-      --bg-deep: #050307;
-      --card-bg: rgba(0,0,0,0.78);
-      --card-border: rgba(255,255,255,0.18);
-      --text-main: #ffffff;
-      --text-muted: #d4d4d4;
-    }
+<style>
+:root {
+  --sonora-red:#be1622;
+  --bg-dark:#090305;
+  --bg-grad-1:#3b0a0f;
+  --bg-grad-2:#1a0306;
+  --text:#ffffff;
+  --soft:#d7d7d7;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box;}
 
-    html, body {
-      height: 100%;
-    }
+body{
+  font-family:"Helvetica Now Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+  background:
+    radial-gradient(circle at top, var(--sonora-red) 0%, var(--bg-grad-1) 40%, var(--bg-dark) 100%);
+  color:var(--text);
+  min-height:100vh;
+  padding:20px;
+}
 
-    body {
-      min-height: 100vh;
-      font-family: "Helvetica Now Display", "Helvetica Neue", Helvetica,
-        system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(190,22,34,0.95) 0%, #5a0910 40%, #050307 100%);
-      background-color: #050307;
-      background-attachment: fixed;
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
+/* Wrapper centrado */
+.page{
+  max-width:900px;
+  margin:auto;
+  padding-bottom:40px;
+}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+/* Logo */
+.logo{
+  width:240px;
+  display:block;
+  margin:0 auto 20px;
+}
 
-    .page {
-      width: 100%;
-      max-width: 960px;
-    }
+/* TITULO */
+h1{
+  text-align:center;
+  font-size:2rem;
+  margin-bottom:10px;
+  letter-spacing:0.05em;
+}
 
-    /* ===== PASSWORD GATE ===== */
+/* Password box */
+#password-box{
+  background:rgba(0,0,0,0.5);
+  padding:20px;
+  border-radius:16px;
+  text-align:center;
+  max-width:400px;
+  margin:40px auto;
+  border:1px solid rgba(255,255,255,0.2);
+}
+#password-box input{
+  width:100%;
+  padding:12px;
+  font-size:1rem;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+}
+#password-box button{
+  margin-top:14px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:999px;
+  background:#ffffff;
+  color:var(--sonora-red);
+  font-weight:700;
+  cursor:pointer;
+}
 
-    .card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      border: 1px solid var(--card-border);
-      padding: 20px 18px 18px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-      backdrop-filter: blur(22px);
-    }
+/* Contenido ocultable */
+#content{ display:none; }
 
-    .gate-header {
-      text-align: center;
-      margin-bottom: 16px;
-    }
+/* Secciones */
+.section{
+  margin-top:30px;
+  background:rgba(0,0,0,0.45);
+  padding:20px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.15);
+}
 
-    .gate-title {
-      font-size: 1.3rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
+/* Botones de reserva */
+.res-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;
+  margin-top:14px;
+}
+.res-card{
+  background:#fff;
+  color:#000;
+  padding:20px;
+  border-radius:18px;
+  cursor:pointer;
+  transition:transform 0.2s;
+}
+.res-card:hover{
+  transform:scale(1.03);
+}
+.res-title{
+  font-size:0.9rem;
+  color:var(--sonora-red);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.15em;
+}
+.res-time{
+  margin-top:6px;
+  font-size:1.3rem;
+  font-weight:700;
+}
 
-    .gate-sub {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      margin-top: 4px;
-    }
+/* Calendario responsivo */
+.calendar-wrapper {
+  margin-top:20px;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.15);
+}
 
-    .gate-form {
-      margin-top: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
+.calendar-iframe {
+  width:100%;
+  min-height:650px;
+  border:0;
+}
 
-    .gate-input {
-      width: 100%;
-      max-width: 260px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 8px 14px;
-      background: rgba(0,0,0,0.5);
-      color: #fff;
-      font-size: 0.9rem;
-      outline: none;
-    }
+@media(max-width:600px){
+  .calendar-iframe { min-height:750px; }
+}
 
-    .gate-input::placeholder {
-      color: rgba(255,255,255,0.6);
-    }
-
-    .gate-button {
-      border-radius: 999px;
-      border: none;
-      padding: 8px 22px;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-weight: 700;
-      background: #ffffff;
-      color: var(--sonora-red-dark);
-      cursor: pointer;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.6);
-    }
-
-    .gate-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 32px rgba(0,0,0,0.8);
-    }
-
-    .gate-error {
-      font-size: 0.8rem;
-      color: #ffb3b3;
-      min-height: 1.1em;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* ===== APP REAL ===== */
-
-    .app-header {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-bottom: 14px;
-    }
-
-    .app-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .app-sub {
-      font-size: 0.9rem;
-      opacity: 0.95;
-    }
-
-    .warning-box {
-      margin-top: 10px;
-      background: rgba(0,0,0,0.7);
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 10px 12px;
-      font-size: 0.85rem;
-      line-height: 1.4;
-    }
-
-    .warning-title {
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .rules {
-      margin-top: 14px;
-      font-size: 0.86rem;
-      line-height: 1.5;
-    }
-
-    .rules ul {
-      padding-left: 1.2rem;
-      margin-top: 4px;
-    }
-
-    .rules li {
-      margin-bottom: 4px;
-    }
-
-    /* BOTONES DE RESERVA */
-
-    .slots-section {
-      margin-top: 18px;
-    }
-
-    .slots-title {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-
-    .slots-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 10px;
-    }
-
-    .slot-btn {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 3px;
-      width: 100%;
-      border-radius: 14px;
-      padding: 10px 12px;
-      background: #ffffff;
-      color: var(--sonora-red-dark);
-      font-size: 0.86rem;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.7);
-    }
-
-    .slot-btn span.label {
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.7rem;
-      opacity: 0.8;
-    }
-
-    .slot-btn span.time {
-      font-size: 0.95rem;
-    }
-
-    .slot-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 36px rgba(0,0,0,0.8);
-    }
-
-    /* CALENDARIO */
-
-    .calendar-section {
-      margin-top: 22px;
-    }
-
-    .calendar-title {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .calendar-sub {
-      font-size: 0.82rem;
-      opacity: 0.9;
-      margin-bottom: 10px;
-    }
-
-    .calendar-wrapper {
-      width: 100%;
-      overflow-x: auto;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: #000;
-    }
-
-    .calendar-wrapper iframe {
-      width: 100%;
-      min-width: 600px;
-      border: 0;
-      display: block;
-    }
-
-    /* FOOTER */
-
-    .footer {
-      margin-top: 12px;
-      font-size: 0.76rem;
-      opacity: 0.85;
-      text-align: right;
-    }
-
-    @media (max-width: 640px) {
-      .card {
-        padding: 16px 14px 16px;
-      }
-
-      .app-title {
-        font-size: 1.3rem;
-      }
-
-      .calendar-wrapper iframe {
-        min-width: 520px;
-        height: 480px;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
 
 <div class="page">
 
-  <!-- PANTALLA DE CONTRASEÑA -->
-  <div id="password-gate" class="card">
-    <div class="gate-header">
-      <div class="gate-title">SONORA UC3M</div>
-      <div class="gate-sub">Acceso interno · Reserva del estudio</div>
-    </div>
+  <!-- LOGO -->
+  <img src="sonora_2.1_blanco.png" class="logo" alt="Sonora UC3M">
 
-    <form id="access-form" class="gate-form">
-      <input
-        type="password"
-        id="access-input"
-        class="gate-input"
-        placeholder="Contraseña"
-        autocomplete="off"
-      />
-      <button type="submit" class="gate-button">Entrar</button>
-      <div id="gate-error" class="gate-error"></div>
-    </form>
+  <h1>Reserva del Estudio · Sonora UC3M</h1>
+
+  <!-- PASSWORD -->
+  <div id="password-box">
+    <p>Introduce la contraseña para acceder:</p>
+    <input type="password" id="pass" placeholder="Contraseña">
+    <button onclick="checkPass()">Acceder</button>
   </div>
 
-  <!-- CONTENIDO REAL (OCULTO HASTA CONTRASEÑA) -->
-  <div id="app" class="card hidden">
-    <header class="app-header">
-      <div class="app-title">SONORA UC3M</div>
-      <div class="app-sub">Reserva del estudio de grabación</div>
-    </header>
+  <!-- CONTENIDO PRINCIPAL -->
+  <div id="content">
 
-    <div class="warning-box">
-      <div class="warning-title">Responsabilidad de uso</div>
-      <div>
+    <div class="section">
+      <h2>Normas de uso</h2>
+      <p style="margin-top:10px; line-height:1.5;">
         Al reservar el estudio, te haces responsable del material, garantizando su correcto uso y mantenimiento.
-        Cualquier problema debe notificarse por el grupo o al correo
-        <strong>sonora.asoc@uc3m.es</strong>.
-      </div>
-    </div>
+        Cualquier incidencia debe notificarse al grupo o al correo
+        <b>sonora.asoc@uc3m.es</b>.
+      </p>
 
-    <div class="rules">
-      <strong>Normas de reserva:</strong>
-      <ul>
-        <li>Las reservas deben hacerse con al menos <strong>24 horas de antelación</strong> y no más de <strong>15 días antes</strong>.</li>
-        <li><strong>Máximo 4 horas de uso por semana por programa.</strong></li>
-        <li>Para excepciones, solicita autorización previa enviando un correo a <strong>sonora.asoc@uc3m.es</strong>.</li>
+      <ul style="margin-top:12px; line-height:1.5;">
+        <li>Las reservas deben hacerse con al menos <b>24 horas de antelación</b> y no más de <b>15 días antes</b>.</li>
+        <li>Máximo <b>4 horas de uso por semana</b> por programa.</li>
+        <li>Para excepciones, escribid a <b>sonora.asoc@uc3m.es</b>.</li>
       </ul>
     </div>
 
-    <section class="slots-section">
-      <div class="slots-title">Elegir duración de la reserva</div>
-      <div class="slots-grid">
-        <a class="slot-btn" href="https://calendar.app.google/iQCdQpLjciCMSbQH8" target="_blank" rel="noopener">
-          <span class="label">Duración</span>
-          <span class="time">1 hora</span>
-        </a>
+    <!-- RESERVAS -->
+    <div class="section">
+      <h2>Elegir duración de la reserva</h2>
 
-        <a class="slot-btn" href="https://calendar.app.google/iQCdQpLjciCMSbQH8" target="_blank" rel="noopener">
-          <span class="label">Duración</span>
-          <span class="time">1 hora y media</span>
-        </a>
+      <div class="res-grid">
+        <div class="res-card" onclick="reserve('https://calendar.app.google/iQCdQpLjciCMSbQH8')">
+          <div class="res-title">Duración</div>
+          <div class="res-time">1 hora</div>
+        </div>
 
-        <a class="slot-btn" href="https://calendar.app.google/VbfPtcES9wkVtXMz7" target="_blank" rel="noopener">
-          <span class="label">Duración</span>
-          <span class="time">2 horas</span>
-        </a>
+        <div class="res-card" onclick="reserve('https://calendar.app.google/iQCdQpLjciCMSbQH8')">
+          <div class="res-title">Duración</div>
+          <div class="res-time">1 hora y media</div>
+        </div>
 
-        <a class="slot-btn" href="https://calendar.app.google/S2vYtZV9pVUcf8RaA" target="_blank" rel="noopener">
-          <span class="label">Duración</span>
-          <span class="time">2 horas y media</span>
-        </a>
+        <div class="res-card" onclick="reserve('https://calendar.app.google/VbfPtcES9wkVtXMz7')">
+          <div class="res-title">Duración</div>
+          <div class="res-time">2 horas</div>
+        </div>
 
-        <a class="slot-btn" href="https://calendar.app.google/421zA2JX4yD5zv7x5" target="_blank" rel="noopener">
-          <span class="label">Duración</span>
-          <span class="time">3 horas</span>
-        </a>
+        <div class="res-card" onclick="reserve('https://calendar.app.google/S2vYtZV9pVUcf8RaA')">
+          <div class="res-title">Duración</div>
+          <div class="res-time">2 horas y media</div>
+        </div>
+
+        <div class="res-card" onclick="reserve('https://calendar.app.google/421zA2JX4yD5zv7x5')">
+          <div class="res-title">Duración</div>
+          <div class="res-time">3 horas</div>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <section class="calendar-section">
-      <div class="calendar-title">Calendario de reservas</div>
-      <div class="calendar-sub">
-        Consulta aquí los huecos ya reservados antes de hacer tu solicitud.
-      </div>
+    <!-- CALENDARIO -->
+    <div class="section">
+      <h2>Calendario de reservas</h2>
+      <p style="margin:8px 0 16px;">Consulta aquí los huecos ya ocupados.</p>
+
       <div class="calendar-wrapper">
-        <!-- Código de calendario proporcionado, adaptado a ancho completo -->
-        <iframe
-          src="https://calendar.google.com/calendar/embed?src=sonora.asoc%40uc3m.es&ctz=Europe%2FMadrid"
-          style="border:0"
-          height="600"
-          frameborder="0"
-          scrolling="no">
+        <iframe 
+          class="calendar-iframe"
+          src="https://calendar.google.com/calendar/embed?src=sonora.asoc%40uc3m.es&ctz=Europe%2FMadrid">
         </iframe>
       </div>
-    </section>
-
-    <div class="footer">
-      Uso interno · Estudio Sonora UC3M
     </div>
-  </div>
+
+  </div> <!-- FIN CONTENT -->
+
 </div>
 
 <script>
-  // Contraseña sencilla en cliente
-  const PASSWORD = "EQUIPO2024";
+function checkPass(){
+  const pwd = document.getElementById("pass").value;
+  if(pwd === "EQUIPO2024"){
+    document.getElementById("password-box").style.display="none";
+    document.getElementById("content").style.display="block";
+  }else{
+    alert("Contraseña incorrecta.");
+  }
+}
 
-  const gate      = document.getElementById("password-gate");
-  const app       = document.getElementById("app");
-  const form      = document.getElementById("access-form");
-  const input     = document.getElementById("access-input");
-  const errorBox  = document.getElementById("gate-error");
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const value = (input.value || "").trim();
-
-    if (value === PASSWORD) {
-      gate.classList.add("hidden");
-      app.classList.remove("hidden");
-      errorBox.textContent = "";
-    } else {
-      errorBox.textContent = "Contraseña incorrecta.";
-    }
-  });
+function reserve(url){
+  window.open(url, "_blank");
+}
 </script>
 
 </body>
