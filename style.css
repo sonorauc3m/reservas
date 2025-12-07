@@ -1,291 +1,126 @@
-:root {
-  --sonora-red: #be1622;
-  --sonora-red-dark: #8c1019;
-  --bg-deep: #050307;
-  --card-bg: rgba(0,0,0,0.78);
-  --card-border: rgba(255,255,255,0.18);
-  --text-main: #ffffff;
-  --text-muted: #d4d4d4;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reserva Estudio · Sonora UC3M</title>
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+<link rel="stylesheet" href="style.css">
+</head>
 
-html, body {
-  height: 100%;
-}
+<body>
 
-body {
-  min-height: 100vh;
-  font-family: "Helvetica Now Display", "Helvetica Neue", Helvetica,
-    system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background:
-    radial-gradient(circle at top, rgba(190,22,34,0.95) 0%, #5a0910 40%, #050307 100%);
-  background-color: #050307;
-  background-attachment: fixed;
-  color: var(--text-main);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-}
+<div class="page">
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  <!-- === PANTALLA DE CONTRASEÑA === -->
+  <div id="gate" class="card">
+    <div class="gate-header">
+      <div class="gate-title">ACCESO RESTRINGIDO</div>
+      <div class="gate-sub">Introduce la contraseña para reservar el estudio</div>
+    </div>
 
-.page {
-  width: 100%;
-  max-width: 960px;
-}
+    <div class="gate-form">
+      <input id="pass" class="gate-input" type="password" placeholder="Contraseña">
+      <button class="gate-button" onclick="checkPass()">Entrar</button>
+      <div id="error" class="gate-error"></div>
+    </div>
+  </div>
 
-/* PASSWORD GATE */
+  <!-- === CONTENIDO PRINCIPAL (SE OCULTA HASTA PONER CONTRASEÑA) === -->
+  <div id="app" class="hidden">
 
-.card {
-  background: var(--card-bg);
-  border-radius: 20px;
-  border: 1px solid var(--card-border);
-  padding: 20px 18px 18px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-  backdrop-filter: blur(22px);
-}
+    <div class="app-header">
+      <img src="sonora_2.1_blanco.png" alt="Sonora UC3M" style="width:180px; margin-bottom:10px;">
+      <div class="app-title">RESERVA DEL ESTUDIO</div>
+      <div class="app-sub">Estudio Sonora UC3M · Campus de Getafe</div>
+    </div>
 
-.gate-header {
-  text-align: center;
-  margin-bottom: 16px;
-}
+    <div class="warning-box">
+      <div class="warning-title">⚠ Responsabilidad del uso</div>
+      Al reservar el estudio, te haces responsable del material, garantizando su correcto uso y mantenimiento.
+      Cualquier incidencia debe notificarse al grupo interno o a:
+      <b>sonora.asoc@uc3m.es</b>.
+    </div>
 
-.gate-title {
-  font-size: 1.3rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
+    <div class="rules">
+      <b>Normas de reserva:</b>
+      <ul>
+        <li>Las reservas deben hacerse con al menos <b>24 horas de antelación</b>.</li>
+        <li>No se puede reservar con más de <b>15 días</b> antes.</li>
+        <li>Máximo <b>4 horas por semana</b> por programa.</li>
+        <li>Para excepciones, escribe a <b>sonora.asoc@uc3m.es</b>.</li>
+      </ul>
+    </div>
 
-.gate-sub {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  margin-top: 4px;
-}
+    <!-- === BOTONES DE RESERVA === -->
+    <div class="slots-section">
+      <div class="slots-title">Selecciona la duración</div>
 
-.gate-form {
-  margin-top: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
+      <div class="slots-grid">
 
-.gate-input {
-  width: 100%;
-  max-width: 260px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 8px 14px;
-  background: rgba(0,0,0,0.5);
-  color: #fff;
-  font-size: 0.9rem;
-  outline: none;
-}
+        <a class="slot-btn" href="https://calendar.app.google/iQCdQpLjciCMSbQH8" target="_blank">
+          <span class="label">Reserva</span>
+          <span class="time">1 hora</span>
+        </a>
 
-.gate-input::placeholder {
-  color: rgba(255,255,255,0.6);
-}
+        <a class="slot-btn" href="https://calendar.app.google/iQCdQpLjciCMSbQH8" target="_blank">
+          <span class="label">Reserva</span>
+          <span class="time">1 hora y media</span>
+        </a>
 
-.gate-button {
-  border-radius: 999px;
-  border: none;
-  padding: 8px 22px;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-weight: 700;
-  background: #ffffff;
-  color: var(--sonora-red-dark);
-  cursor: pointer;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.6);
-}
+        <a class="slot-btn" href="https://calendar.app.google/VbfPtcES9wkVtXMz7" target="_blank">
+          <span class="label">Reserva</span>
+          <span class="time">2 horas</span>
+        </a>
 
-.gate-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.8);
-}
+        <a class="slot-btn" href="https://calendar.app.google/S2vYtZV9pVUcf8RaA" target="_blank">
+          <span class="label">Reserva</span>
+          <span class="time">2 horas y media</span>
+        </a>
 
-.gate-error {
-  font-size: 0.8rem;
-  color: #ffb3b3;
-  min-height: 1.1em;
-}
+        <a class="slot-btn" href="https://calendar.app.google/421zA2JX4yD5zv7x5" target="_blank">
+          <span class="label">Reserva</span>
+          <span class="time">3 horas</span>
+        </a>
 
-.hidden {
-  display: none;
-}
+      </div>
+    </div>
 
-/* APP REAL */
+    <!-- === CALENDARIO === -->
+    <div class="calendar-section">
+      <div class="calendar-title">Calendario de reservas</div>
+      <div class="calendar-sub">Consulta disponibilidad antes de reservar</div>
 
-.app-header {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 14px;
-}
+      <div class="calendar-wrapper">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?src=sonora.asoc%40uc3m.es&ctz=Europe%2FMadrid"
+          width="800"
+          height="600"
+          frameborder="0"
+          scrolling="no">
+        </iframe>
+      </div>
+    </div>
 
-.app-title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
+    <div class="footer">© Sonora UC3M · Asociación Cultural</div>
 
-.app-sub {
-  font-size: 0.9rem;
-  opacity: 0.95;
-}
+  </div>
+</div>
 
-.warning-box {
-  margin-top: 10px;
-  background: rgba(0,0,0,0.7);
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 10px 12px;
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
+<script>
+// CONTRASEÑA = EQUIPO2024
+function checkPass() {
+  const input = document.getElementById("pass").value.trim();
+  const error = document.getElementById("error");
 
-.warning-title {
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.rules {
-  margin-top: 14px;
-  font-size: 0.86rem;
-  line-height: 1.5;
-}
-
-.rules ul {
-  padding-left: 1.2rem;
-  margin-top: 4px;
-}
-
-.rules li {
-  margin-bottom: 4px;
-}
-
-/* BOTONES RESERVA */
-
-.slots-section {
-  margin-top: 18px;
-}
-
-.slots-title {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  margin-bottom: 10px;
-  font-weight: 700;
-}
-
-.slots-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
-}
-
-.slot-btn {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 3px;
-  width: 100%;
-  border-radius: 14px;
-  padding: 10px 12px;
-  background: #ffffff;
-  color: var(--sonora-red-dark);
-  font-size: 0.86rem;
-  font-weight: 700;
-  text-decoration: none;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.7);
-}
-
-.slot-btn span.label {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.7rem;
-  opacity: 0.8;
-}
-
-.slot-btn span.time {
-  font-size: 0.95rem;
-}
-
-.slot-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 36px rgba(0,0,0,0.8);
-}
-
-/* CALENDARIO */
-
-.calendar-section {
-  margin-top: 22px;
-}
-
-.calendar-title {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  margin-bottom: 8px;
-  font-weight: 700;
-}
-
-.calendar-sub {
-  font-size: 0.82rem;
-  opacity: 0.9;
-  margin-bottom: 10px;
-}
-
-.calendar-wrapper {
-  width: 100%;
-  overflow-x: auto;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: #000;
-}
-
-.calendar-wrapper iframe {
-  width: 100%;
-  min-width: 600px;
-  border: 0;
-  display: block;
-}
-
-/* FOOTER */
-
-.footer {
-  margin-top: 12px;
-  font-size: 0.76rem;
-  opacity: 0.85;
-  text-align: right;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 640px) {
-  .card {
-    padding: 16px 14px 16px;
-  }
-
-  .app-title {
-    font-size: 1.3rem;
-  }
-
-  .calendar-wrapper iframe {
-    min-width: 520px;
-    height: 480px;
+  if (input === "EQUIPO2024") {
+    document.getElementById("gate").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+  } else {
+    error.textContent = "Contraseña incorrecta.";
   }
 }
+</script>
+
+</body>
+</html>
